@@ -1,0 +1,147 @@
+import jss from 'jss'
+import preset from 'jss-preset-default'
+import { Effect } from 'young.js'
+import codeMirror from '../utils/codeMirror'
+
+props: { isShow, isCompile }
+<div className={s.root}>
+  <textarea id='editor'>{code}</textarea>
+  <textarea id='editor2'></textarea>
+  <iframe id='frame' className={s.iframe} />
+</div>
+
+var mirror
+Effect(() => {
+  setTimeout(() => {
+    mirror = document.getElementsByClassName('CodeMirror cm-s-neo')[1]
+    mirror.style.display = 'none'
+  })
+})
+
+Effect(() => {
+  const frame = document.querySelector('#frame')
+  frame.style.display = isShow !== 'preview' ? 'none' : 'block'
+  if (mirror) {
+    mirror.style.display = isShow === 'preview' ? 'none' : 'block'
+  }
+}, [isShow])
+
+Effect(() => codeMirror.fromText())
+
+Effect(() => {
+  const frame = document.querySelector('#frame')
+  if (!frame) return
+  const { contentDocument } = frame
+  const div = document.createElement('div')
+  div.className = 'root'
+  const srcipt = document.createElement('script')
+  const codeSrcipt = document.createElement('script')
+  srcipt.setAttribute('src', '../utils/young.js')
+  codeSrcipt.setAttribute('id', 'codeSrcipt')
+  contentDocument.body.append(div, srcipt, codeSrcipt)
+  codeMirror.setValue(codeMirror.parser())
+})
+
+var young
+Effect(async () => {
+  const text = await fetch('../utils/young.js')
+  young = await text.text()
+})
+
+Effect(() => {
+  const frame = document.querySelector('#frame')
+  if (!frame) return
+  const { contentDocument } = frame
+  const oldCodeSrcipt = contentDocument.querySelector('#codeSrcipt')
+  oldCodeSrcipt.remove()
+  const codeSrcipt = document.createElement('script')
+  codeSrcipt.setAttribute('id', 'codeSrcipt')
+  contentDocument.body.append(codeSrcipt)
+  contentDocument.querySelector('.root').innerHTML = ''
+  if (!young) {
+    (async () => {
+      const text = await fetch('../utils/young.js')
+      const res = await text.text()
+      codeSrcipt.textContent = `${res}\nnew Function(\`${codeMirror.toBrowser(codeMirror.parser())}\`)()`
+      window.localStorage.setItem('code', codeMirror.getTextAreaValue())
+      codeMirror.setValue(codeMirror.parser())
+    })()
+  } else {
+    const parserd = codeMirror.parser()
+    codeSrcipt.textContent = `${young}\nnew Function(\`${codeMirror.toBrowser(parserd)}\`)()`
+    window.localStorage.setItem('code', codeMirror.getTextAreaValue())
+    codeMirror.setValue(parserd)
+  }
+}, [isCompile])
+
+jss.setup(preset())
+const s = jss.createStyleSheet({
+  root: {
+    display: 'flex',
+    height: 'calc(100vh - 70px)'
+  },
+  iframe: {
+    width: '50vw',
+    border: 'none'
+  }
+}).attach().classes
+
+const code = window.localStorage.getItem('code') ||
+  `import { Style } from 'young.js'
+import { Effect } from 'young.js'
+
+<div className={s.root}>
+  <h1 className={s.h1}>Hello Young.js</h1>
+  <div className={s.container}>
+    <h3 className={s.h2}>你的帅气值: {count}</h3>
+    <button className={s.button} onclick={() => count++}>帅气值+1</button>
+  </div>
+</div>
+
+$: count = 0
+
+Effect(() => {
+  console.log('你又变帅了' + count + '分')
+}, [count])
+
+const s = Style({
+  '@global': {
+    '*': {
+      margin: 0,
+      color: '#adadfb',
+      fontWeight: 500,
+      fontFamily: 'Consolas, Menlo, Monaco'
+    }
+  },
+  root: {
+    width: 'fit-content',
+    margin: 'auto',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  h1: {
+    margin: '100px 0 30px 0',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 'fit-content',
+    height: '100px',
+    margin: 'auto',
+  },
+  h2: {
+    margin: '10px 0',
+  },
+  button: {
+    width: '100px',
+    height: '30px',
+    borderRadius: '25px',
+    border: 'none',
+    color: 'white',
+    backgroundImage: 'linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%)'
+  }
+})
+
+Young('.root')
+`

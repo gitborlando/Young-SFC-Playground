@@ -1,0 +1,59 @@
+/* neo theme for codemirror */
+
+/* Color scheme */
+
+.cm-s-neo.CodeMirror {
+  background-color:#ffffff;
+  color:#2e383c;
+  font-size: 15px;
+  font-family: Consolas, Menlo, Monaco, 
+              'Lucida Console', 'Liberation Mono', 
+              'DejaVu Sans Mono', 
+              'Bitstream Vera Sans Mono', 
+              'Courier New', monospace, serif;
+  line-height:1.5;
+  height: 100%;
+  width: 50vw;
+  border-right: 1px solid rgb(0,0,0,0.1);
+  background-color: #f6fafd;
+}
+.cm-s-neo .cm-comment { color:#75787b; }
+/* .cm-s-neo .cm-keyword, .cm-s-neo .cm-property { color:#004ae9; } */
+.cm-s-neo .cm-keyword, .cm-s-neo .cm-property { color:rgb(0, 129, 204); }
+.cm-s-neo .cm-atom,.cm-s-neo .cm-number { color:#75438a; }
+.cm-s-neo .cm-node,.cm-s-neo .cm-tag { color:#9c3328; }
+.cm-s-neo .cm-string { color:#494949; }
+/* .cm-s-neo .cm-string { color:#b35e14; } */
+/* .cm-s-neo .cm-variable,.cm-s-neo .cm-qualifier { color: #a000bd;; } */
+.cm-s-neo .cm-variable,.cm-s-neo .cm-qualifier { color:rgb(130, 0, 190); }
+.cm-s-neo .cm-keyword {color: #e70000;}
+.cm-s-neo .cm-def {color: #bd00bd;}
+
+
+/* Editor styling */
+
+.cm-s-neo pre {
+  padding:0;
+}
+
+.cm-s-neo .CodeMirror-gutters {
+  border:none;
+  border-right:10px solid #f6fafd;
+  background-color:#f6fafd;
+}
+
+.cm-s-neo .CodeMirror-linenumber {
+  padding:0;
+  color:#c5c5c5;
+  font-size: 16px;
+}
+
+.cm-s-neo .CodeMirror-guttermarker { color: #1d75b3; }
+.cm-s-neo .CodeMirror-guttermarker-subtle { color: #e0e2e5; }
+
+.cm-s-neo .CodeMirror-cursor {
+  width: 2px;
+  border: 0;
+  background: rgb(56, 56, 56);
+  z-index: 1;
+}

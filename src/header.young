@@ -1,0 +1,63 @@
+import jss from 'jss'
+import preset from 'jss-preset-default'
+
+props: { isShow, preview, jsoutput }
+<div className={s.root}>
+  <h2 className={s.title}>Young SFC Playground</h2>
+  <div className={s.buttons}>
+    <div className={isShow === 'preview' ? s.checked : s.button} onclick={preview}>Preview</div>
+    <div className={isShow !== 'preview' ? s.checked : s.button} onclick={jsoutput}>Jsoutput</div>
+    <a className={s.button} href="https://github.com/gitborlando/Young-SFC-Playground">GitHub</a>
+  </div>
+</div>
+
+const buttonWidth = '100px'
+
+jss.setup(preset())
+const s = jss.createStyleSheet({
+  root: {
+    width: '100vw',
+    height: '70px',
+    display: 'flex',
+    alignItems: 'center',
+    padding: '0 20px',
+    borderBottom: '1px solid rgb(0,0,0,0.1)'
+  },
+  title: {
+    fontWeight: 500,
+    color: '#444'
+  },
+  buttons: {
+    width: 'fit-content',
+    marginLeft: 'auto',
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  button: {
+    minWidth: buttonWidth,
+    width: 'fit-content',
+    height: 'fit-content',
+    textAlign: 'center',
+    padding: '0 10px',
+    cursor: 'pointer',
+    color: '#444',
+    textDecoration: 'none',
+
+    '&:hover': {
+      color: '#00b2e7'
+    }
+  },
+  checked: {
+    minWidth: buttonWidth,
+    width: 'fit-content',
+    height: 'fit-content',
+    textAlign: 'center',
+    padding: '0 10px',
+    cursor: 'pointer',
+    color: '#adadfb',
+
+    '&:hover': {
+      color: '#adadfb'
+    }
+  }
+}).attach().classes;

@@ -1,0 +1,31 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/generator": "^7.15.4",
+    "@babel/parser": "^7.15.7",
+    "@babel/traverse": "^7.15.4",
+    "@babel/types": "^7.15.6",
+    "buffer": "^6.0.3",
+    "codemirror": "^5.63.1",
+    "jss": "^10.8.0",
+    "jss-preset-default": "^10.8.0",
+    "process": "^0.11.10",
+    "young.js": "^1.0.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-umd": "^7.14.5",
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0",
+    "young-loader": "^1.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack"
+  },
+  "author": "",
+  "license": "ISC"
+}
