@@ -7,7 +7,7 @@ props: { isShow, preview, jsoutput }
   <div className={s.buttons}>
     <div className={isShow === 'preview' ? s.checked : s.button} onclick={preview}>Preview</div>
     <div className={isShow !== 'preview' ? s.checked : s.button} onclick={jsoutput}>Jsoutput</div>
-    <a className={s.button} href="https://github.com/gitborlando/Young-SFC-Playground">GitHub</a>
+    <a className={s.button} href="https://github.com/gitborlando/Young-SFC-Playground" target='blank'>GitHub</a>
   </div>
 </div>
 
